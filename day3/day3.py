@@ -46,12 +46,8 @@ def dontmulall():
 
     muls = {i.end(): i.group()[4:].rstrip(')').split(',') for i in re.finditer("mul\(\d+,\s*\d+\)", txt)}
 
-    print(switch)
-
     if len(switch) % 2 != 0:
         switch.append(99999999999999999999999999) # hopefully there can't be a file this long, janky solution
-
-    print(switch)
 
     for i in muls.keys():
 
