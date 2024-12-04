@@ -72,17 +72,14 @@ def afinder():
 
     total = 0
 
-    locX = []
+    locA = []
 
     for y, i in enumerate(lines):
         for x, j in enumerate(i):
             if i[x] == 'A':
-                locX.append((j, x,y))
+                locA.append((j, x,y))
 
-    for i in locX:
-
-        x = -1
-        y = -1
+    for i in locA:
 
         total += checkmas(i, (-1,-1))
     
