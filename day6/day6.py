@@ -10,7 +10,7 @@ for i in lines:
 lines.append(['-' for i in lines[0]])
 lines.insert(0, ['-' for i in lines[0]])
 
-def checkforward(current, direc, positions, hits, lines):
+def checkforward(current, direc, positions, counter):
 
     mult = 1
     forward = lines[current['y'] + mult*direc['y']][current['x'] + mult*direc['x']]
@@ -23,21 +23,23 @@ def checkforward(current, direc, positions, hits, lines):
         forward = lines[current['y'] + mult*direc['y']][current['x'] + mult*direc['x']]
 
     if forward == '-':
-        return 
+        return 0
     elif forward == '#':
-
-        if [{'x': current['x'] + (mult)*direc['x'] , 'y': current['y'] + (mult)*direc['y']}, direc] in hits:
-            return 1
-
-        hits.append([{'x': current['x'] + (mult)*direc['x'] , 'y': current['y'] + (mult)*direc['y']}, direc])
 
         options = [{'x': 0, 'y': -1}, {'x': 1, 'y': 0}, {'x': 0, 'y': 1}, {'x': -1, 'y': 0}]
         newdirec = options[(options.index(direc) + 1) % 4]
 
-        checkforward({'x': current['x'] + (mult-1)*direc['x'] , 
-                        'y': current['y'] + (mult-1)*direc['y']}, newdirec, positions, hits, lines)
+        counter += 1
 
-    return 
+        if counter > 995:
+            print(counter)
+            return 1
+
+        checkforward({'x': current['x'] + (mult-1)*direc['x'] , 
+                        'y': current['y'] + (mult-1)*direc['y']}, newdirec, positions, counter)
+
+
+    return 0
 
 
 def pt1():
@@ -48,7 +50,7 @@ def pt1():
     
     direction = {'x': 0, 'y': -1}
     positions = [current]
-    checkforward(current, direction, positions, [], lines)
+    checkforward(current, direction, positions, 0)
 
     return positions
 
@@ -60,7 +62,7 @@ def pt2():
 
     for i in positions:
 
-        print(i)
+        #print(i)
 
         for j, k in enumerate(lines):
             if '^' in k:
@@ -69,14 +71,16 @@ def pt2():
         direction = {'x': 0, 'y': -1}
         newpositions = []
         hits = []
+        counter = 0
 
         newlines = lines
         if newlines[i['y']][i['x']] != "^":
             newlines[i['y']][i['x']] = "#"
 
-        checkforward(current, direction, [], hits, lines)
+        total += checkforward(current, direction, [], counter)
 
-        print(hits)
+
+    #print(hits)
             #total += 1
 
         # for i in hits:
