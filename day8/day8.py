@@ -35,4 +35,4 @@ def findAntinodes():
 
 numantinode = findAntinodes()
 print(f'Part 1 {numantinode[0]}')
-print(f'Part 1 {numantinode[1]}')
+print(f'Part 2 {numantinode[1]}')
