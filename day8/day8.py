@@ -25,7 +25,24 @@ def pt1():
 
     return(len(antinodes))
 
-print(pt1())
+print(f'Part 1: {pt1()}')
 
 def pt2():
-    
+
+    antinodes = []
+
+    for i in coorddict:
+        for j in coorddict[i]:
+            for l in coorddict[i]:
+                if (j[1] - l[1] == 0 or (j[0] - l[0]) / (j[1] - l[1])) and j != l:
+                    k = 0
+                    loc = [j[0] + k*(j[0] - l[0]), j[1] + k*(j[1] - l[1])]
+                    while loc[0] in range(len(lines)) and loc[1] in range(len(lines[0])):
+                        loc = [j[0] + k*(j[0] - l[0]), j[1] + k*(j[1] - l[1])]
+                        if loc not in antinodes and loc[0] in range(len(lines)) and loc[1] in range(len(lines[0])):
+                            antinodes.append(loc)
+                        k+=1
+
+    return(len(antinodes))
+
+print(f'Part 2 {pt2()}')
