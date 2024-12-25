@@ -5,7 +5,7 @@ coorddict = {}
 
 for i, j in enumerate(lines):
     for k, l in enumerate(j):
-        if lines[i][k] not in ['-', '.']:
+        if lines[i][k] != '.':
             if lines[i][k] not in coorddict.keys():
                 coorddict[lines[i][k]] = [[i, k]]
             else:
